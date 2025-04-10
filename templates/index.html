@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f5f5f5; }
+        .task { padding: 0.5em; margin: 0.5em 0; background: white; border-radius: 5px; }
+        .done { text-decoration: line-through; color: gray; }
+        form { margin-bottom: 1em; }
+        button { margin-left: 0.5em; }
+    </style>
+</head>
+<body>
+    <h1>📝 To-Do List</h1>
+
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="New task..." required>
+        <button type="submit">Add</button>
+    </form>
+
+    {% for i, item in enumerate(tasks) %}
+        <div class="task {% if item.done %}done{% endif %}">
+            {{ item.task }}
+            {% if not item.done %}
+                <a href="/done/{{ i }}"><button>Mark Done</button></a>
+            {% endif %}
+            <a href="/delete/{{ i }}"><button>Delete</button></a>
+        </div>
+    {% endfor %}
+</body>
+</html>
